@@ -22,16 +22,10 @@ Icon
 .Trashes
 
 # Linux
-.*
-!.gitattributes
-!.gitignore
-!.gitmodules
-!.mailmap
-!.htaccess
 *~
 
 # Vim
-*.s[a-w][a-z]
+*.swp
 *.un~
 Session.vim
 .netrwhist
