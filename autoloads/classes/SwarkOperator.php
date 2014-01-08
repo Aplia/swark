@@ -83,10 +83,15 @@ class SwarkOperator
                                                     'element-transformation-func' => 'transformation' ) );
     }
 
+    function operators()
+    {
+        return SwarkOperators::operators();
+    }
+
     function transformation( $operatorName, $node, $tpl, $resourceData,
                              $element, $lastElement, $elementList, $elementTree, $parameters )
     {
-        $operators = SwarkOperators::operators();
+        $operators = $this->operators();
         $operatorInfo = $operators[$operatorName];
         $namedParametersVarName = '$namedParameters' . md5( mt_rand() );
 
