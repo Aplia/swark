@@ -28,7 +28,6 @@ class SwarkClearObjectCacheOperator extends SwarkOperator
 
     static function execute( $operatorValue, $namedParameters )
     {
-        include_once( 'kernel/classes/ezcontentobject.php' );
         eZContentObject::clearCache();
     }
 }

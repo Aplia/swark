@@ -28,10 +28,6 @@ class SwarkRedirectOperator extends SwarkOperator
 
     static function execute( $operatorValue, $namedParameters )
     {
-        include_once( 'lib/ezutils/classes/ezsys.php' );
-        include_once( 'lib/ezutils/classes/ezhttptool.php' );
-        include_once( 'lib/ezutils/classes/ezexecution.php' );
-
         $redirectUri = $namedParameters['url'];
         if ( is_null( $redirectUri ) )
         {

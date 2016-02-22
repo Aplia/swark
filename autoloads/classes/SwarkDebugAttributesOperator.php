@@ -28,8 +28,6 @@ class SwarkDebugAttributesOperator extends SwarkOperator
 
     static function execute( $operatorValue, $namedParameters )
     {
-        include_once( 'lib/eztemplate/classes/eztemplateattributeoperator.php' );
-
         $header = $namedParameters['header'];
         $depth = $namedParameters['depth'];
         if ( is_integer( $header ) )

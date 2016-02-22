@@ -28,8 +28,6 @@ class SwarkReturnOperator extends SwarkOperator
 
     static function execute( $operatorValue, $namedParameters )
     {
-        include_once( 'lib/ezutils/classes/ezexecution.php' );
-
         $contentType = $namedParameters['content_type'];
         if ( $contentType )
         {
