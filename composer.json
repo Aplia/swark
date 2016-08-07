@@ -1,0 +1,18 @@
+{
+    "name": "aplia/swark",
+    "description": "Swark for eZ Publish 4",
+    "keywords": ["ezextension", "eztemplate"],
+    "homepage": "https://bitbucket.org/aplia/library-swark",
+    "type": "ezpublish-legacy-extension",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Jan Kudlicka",
+            "email": "jk@aplia.no"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "composer/composer": ">=1.0"
+    }
+}
