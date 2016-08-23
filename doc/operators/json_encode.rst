@@ -11,6 +11,8 @@ Usage
 
     input|json_encode
 
+    json_encode(input)
+
 Parameters
 ~~~~~~~~~~
 None.
@@ -19,6 +21,12 @@ Examples
 ~~~~~~~~
 ::
 
-    {array( hash( 'a', 1, 'b', 2 ), 'Test', false(), 1.2345 )|json_encode}
+    {json_encode( 3.1415 )}
 
-Returns [{"a":1,"b":2},"Test",false,1.234500].
+Returns ["3.1415"].
+
+::
+
+    {json_encode( 3.1415 )}
+
+Returns [{"a":1,"b":2},"Test",false,"1.234500"].
