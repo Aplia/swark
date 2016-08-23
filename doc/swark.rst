@@ -264,4 +264,38 @@ Workflow event types
 .. include:: eventtypes/defertocron.rst
 
 
+Custom operators
+================
+
+Swark also makes it easier to create custom operators.
+Create a new operator class with a proper namespace then define the operator
+in `swark.ini`.
+
+::
+
+   [Operators]
+   OperatorMap[my_operator]=MyNamespace\MyOperator
+
+Then implement the class and make sure it is autoloaded.
+
+::
+
+   <?php
+   namespace MyNamespace;
+
+   class MyOperator extends \SwarkOperator
+   {
+       function __construct()
+       {
+           parent::__construct( 'my_operator' );
+       }
+
+       static function execute( $operatorValue, $namedParameters )
+       {
+           return json_encode( $operatorValue );
+       }
+   }
+
+
+
 .. [PHP] http://php.net/

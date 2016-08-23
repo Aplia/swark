@@ -78,6 +78,18 @@ class SwarkOperators
                                                              'operator_names' => array( $operatorName ) );
         }
 
+        // Support for new-style PHP classes with namespaces, they will be loaded by the autoloader
+        // They are loaded from swark.ini and the Operators/OperatorMap variable
+        $ini = eZINI::instance('swark.ini');
+        $psr4Operators = $ini->variable('Operators', 'OperatorMap');
+
+        foreach ($psr4Operators as $operatorName => $operatorClass) {
+            $eZTemplateOperatorArray[$operatorName] = array(
+                'class' => $operatorClass,
+                'operator_names' => array($operatorName),
+            );
+        }
+
         return $eZTemplateOperatorArray;
     }
 }
