@@ -12,6 +12,12 @@
             "homepage": "https://www.aplia.no"
         }
     ],
+    "autoload": {
+        "classmap": [
+            "autoloads",
+            "eventtypes"
+        ]
+    },
     "require": {
         "php": ">=5.3",
         "composer/composer": ">=1.0"
