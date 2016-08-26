@@ -23,67 +23,23 @@ class SwarkOperators
 {
     static function operators()
     {
-        $operators = array(
-            'add_view_parameters' => 'SwarkAddViewParametersOperator',
-            'array_search' => 'SwarkArraySearchOperator',
-            'arsort' => 'SwarkARSortOperator',
-            'asort' => 'SwarkASortOperator',
-            'charset' => 'SwarkCharsetOperator',
-            'clear_object_cache' => 'SwarkClearObjectCacheOperator',
-            'cookie' => 'SwarkCookieOperator',
-            'current_layout' => 'SwarkCurrentLayoutOperator',
-            'current_siteaccess' => 'SwarkCurrentSiteaccessOperator',
-            'debug_attributes' => 'SwarkDebugAttributesOperator',
-            'debug' => 'SwarkDebugOperator',
-            'is_post_request' => 'SwarkIsPostRequestOperator',
-            'json_encode' => 'SwarkJSONEncodeOperator',
-            'krsort' => 'SwarkKRSortOperator',
-            'ksort' => 'SwarkKSortOperator',
-            'ltrim' => 'SwarkLTrimOperator',
-            'modify_view_parameter' => 'SwarkModifyViewParameterOperator',
-            'preg_match' => 'SwarkPregMatchOperator',
-            'preg_replace' => 'SwarkPregReplaceOperator',
-            'range' => 'SwarkRangeOperator',
-            'redirect' => 'SwarkRedirectOperator',
-            'remove_array_element' => 'SwarkRemoveArrayElementOperator',
-            'return' => 'SwarkReturnOperator',
-            'rsort' => 'SwarkRSortOperator',
-            'rtrim' => 'SwarkRTrimOperator',
-            'server' => 'SwarkServerOperator',
-            'set_array_element' => 'SwarkSetArrayElementOperator',
-            'shortenw' => 'SwarkShortenWOperator',
-            'shuffle' => 'SwarkShuffleOperator',
-            'sort' => 'SwarkSortOperator',
-            'split_by_length' => 'SwarkSplitByLengthOperator',
-            'strpos' => 'SwarkStrPosOperator',
-            'str_replace' => 'SwarkStrReplaceOperator',
-            'strrpos' => 'SwarkStrRPosOperator',
-            'substr' => 'SwarkSubStrOperator',
-            'uri_path_segment' => 'SwarkURIPathSegmentOperator',
-            'user_id_by_login' => 'SwarkUserIDByLoginOperator',
-            'variable_names' => 'SwarkVariableNamesOperator',
-        );
-
         /*
             Please note, that there are also the following operators defined in the INI settings:
                 - serialize
                 - unserialize
         */
 
-        $eZTemplateOperatorArray = array();
-        foreach ( $operators as $operatorName => $operatorClass )
-        {
-            $eZTemplateOperatorArray[$operatorName] = array( 'script' => "extension/swark/autoloads/classes/$operatorClass.php",
-                                                             'class' => $operatorClass,
-                                                             'operator_names' => array( $operatorName ) );
-        }
-
-        // Support for new-style PHP classes with namespaces, they will be loaded by the autoloader
-        // They are loaded from swark.ini and the Operators/OperatorMap variable
+        // Initialize operators from swark.ini, the file references the class name
+        // which will be autoloaded by eZ publish or composer.
+        // They are defined in swark.ini and the Operators/OperatorMap variable
         $ini = eZINI::instance('swark.ini');
-        $psr4Operators = $ini->variable('Operators', 'OperatorMap');
+        $classOperators = $ini->variable('Operators', 'OperatorMap');
 
-        foreach ($psr4Operators as $operatorName => $operatorClass) {
+        $eZTemplateOperatorArray = array();
+        foreach ($classOperators as $operatorName => $operatorClass) {
+            if ( $operatorClass == 'disabled' ) {
+                continue;
+            }
             $eZTemplateOperatorArray[$operatorName] = array(
                 'class' => $operatorClass,
                 'operator_names' => array($operatorName),
@@ -93,5 +49,3 @@ class SwarkOperators
         return $eZTemplateOperatorArray;
     }
 }
-
-?>

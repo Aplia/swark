@@ -1,5 +1,10 @@
 # Changelog for Swark
 
+## 1.2.0
+
+* Defined all operators in swark.ini, making even the ones supplied by swark overridable.
+* Added support for disabling operators by setting the class to `disabled`.
+
 ## 1.1.0
 
 * Fixed `json_encode` operator to support values as a parameter or as the pipe input.
