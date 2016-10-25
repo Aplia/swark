@@ -1,5 +1,10 @@
 # Changelog for Swark
 
+## 1.2.1
+
+* Added operator 'url_modify', which makes it easier to modify the components
+  of a url.
+
 ## 1.2.0
 
 * Defined all operators in swark.ini, making even the ones supplied by swark overridable.

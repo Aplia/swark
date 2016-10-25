@@ -13,6 +13,9 @@
         }
     ],
     "autoload": {
+       "psr-4": {
+            "Swark\\": "extension/swark/classes"
+        },
         "classmap": [
             "autoloads",
             "eventtypes"
