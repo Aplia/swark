@@ -14,7 +14,7 @@
     ],
     "autoload": {
        "psr-4": {
-            "Swark\\": "extension/swark/classes"
+            "Swark\\": "classes"
         },
         "classmap": [
             "autoloads",
