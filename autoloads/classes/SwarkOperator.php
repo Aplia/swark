@@ -105,7 +105,7 @@ class SwarkOperator
             }
             else
             {
-                $code .= "{$namedParametersVarName}['$parameterName'] = " . var_export( $parameter['default'], true ) . ";\n";
+                $code .= "{$namedParametersVarName}['$parameterName'] = " . var_export( isset($parameter['default']) ? $parameter['default'] : null, true ) . ";\n";
             }
             $index++;
         }
