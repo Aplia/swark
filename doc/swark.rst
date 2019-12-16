@@ -264,6 +264,26 @@ Workflow event types
 .. include:: eventtypes/defertocron.rst
 
 
+Embed design file
+=================
+
+`embed_design_file` embeds a file located in the designed folders on the
+site. This is similar to th `ezdesign` operator but will return the
+contents of the file instead of the path.
+
+This can for instance be used to embed javascript code from a file,
+the javascript file can then be totally separate from the template code
+and can be opened like a normal javascript file. Another use case is
+to embed handlebar templates.
+
+Pass the relative file path to the operator, for instance `javascript/code.js`
+could be resolved to `extension/site/design/site/javscript.code.js`.
+
+If the second parameter is used and set to true then the returned value
+will contain an HTML element around the file contents if the file type
+is known, currently only Javascript and CSS files are supported.
+
+
 Custom operators
 ================
 
