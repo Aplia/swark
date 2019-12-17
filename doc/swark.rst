@@ -277,11 +277,15 @@ and can be opened like a normal javascript file. Another use case is
 to embed handlebar templates.
 
 Pass the relative file path to the operator, for instance `javascript/code.js`
-could be resolved to `extension/site/design/site/javscript.code.js`.
+could be resolved to `extension/site/design/site/javscript.code.js`::
+
+    {embed_design_file('javascript/code.js')}
 
 If the second parameter is used and set to true then the returned value
 will contain an HTML element around the file contents if the file type
-is known, currently only Javascript and CSS files are supported.
+is known, currently only Javascript and CSS files are supported::
+
+    {embed_design_file('javascript/code.js', true())}
 
 
 Custom operators
