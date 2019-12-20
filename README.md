@@ -78,9 +78,10 @@ The execute function takes in two parameters `$operatorValue` and `$namedParamet
 `$operatorvalue` corresponds to the value that is piped to the operator, and `$namedParameters` is
 the value(s) supplied as parameters using the names defined in the constructor.
 
-e.g.:
+Example usage in an eZ template:
+
 ```eztemplate
-phpinfo('INFO_GENERAL')
+{phpinfo('INFO_GENERAL')}
 ```
 
 ```php
@@ -104,7 +105,7 @@ Any values returned from `execute` will be the return value from the template op
 # Contributors
 
 This code was originally written by Jan Kudlicka and has been extended by developers at Aplia AS.
-A detailed list of contributors can be found at https://github.com/https://github.com/Aplia/swark/graphs/contributors
+A detailed list of contributors can be found at https://github.com/Aplia/swark/graphs/contributors
 
 # License
 
