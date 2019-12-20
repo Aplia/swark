@@ -318,9 +318,13 @@ for the `phpinfo()` function.
 
 .. code-block:: php
 
-    function __construct()
+    <?php
+    class PhpInfoOperator extends SwarkOperator
     {
-        parent::__construct('phpinfo', 'what=');
+        function __construct()
+        {
+            parent::__construct('phpinfo', 'what=');
+        }
     }
 
 
@@ -336,18 +340,22 @@ The `phpinfo` implementation is then as follows.
 
 .. code-block:: php
 
-    static function execute($operatorValue, $namedParameters)
+    <?php
+    class PhpInfoOperator extends SwarkOperator
     {
-        if ($namedParameters['what']) {
-            $constants = array('INFO_GENERAL' => 1, 'INFO_ALL' => -1);
-            $what = $namedParameters['what'];
-            if (in_array($what, $constants)) {
-                phpinfo($constants[$what]);
-                return;
+        static function execute($operatorValue, $namedParameters)
+        {
+            if ($namedParameters['what']) {
+                $constants = array('INFO_GENERAL' => 1, 'INFO_ALL' => -1);
+                $what = $namedParameters['what'];
+                if (in_array($what, $constants)) {
+                    phpinfo($constants[$what]);
+                    return;
+                }
             }
-        }
 
-        phpinfo();
+            phpinfo();
+        }
     }
 
 An using it in an eZ template::
