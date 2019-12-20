@@ -1,15 +1,15 @@
 {
     "name": "aplia/swark",
-    "description": "Swark for eZ Publish 4",
+    "description": "Collection of must have template operators for eZ publish legacy",
     "keywords": ["ezextension", "eztemplate"],
-    "homepage": "https://bitbucket.org/aplia/library-swark",
+    "homepage": "https://github.com/Aplia/swark",
     "type": "ezpublish-legacy-extension",
     "license": "GPL-2.0",
     "authors": [
         {
             "name": "Aplia dev-team",
             "email": "info@aplia.no",
-            "homepage": "https://www.aplia.no"
+            "homepage": "https://github.com/Aplia"
         }
     ],
     "autoload": {
