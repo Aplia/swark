@@ -47,20 +47,11 @@ class PhpInfoOperator extends SwarkOperator
 {
     function __construct()
     {
-        parent::__construct('phpinfo', 'what=');
+        parent::__construct('phpinfo');
     }
 
     static function execute($operatorValue, $namedParameters)
     {
-        if ($namedParameters['what']) {
-            $constants = array('INFO_GENERAL' => 1, 'INFO_ALL' => -1);
-            $what = $namedParameters['what'];
-            if (in_array($what, $constants)) {
-                phpinfo($constants[$what]);
-                return;
-            }
-        }
-
         phpinfo();
     }
 }
@@ -69,7 +60,7 @@ class PhpInfoOperator extends SwarkOperator
 Then use it in a template with:
 
 ```eztemplate
-{phpinfo('INFO_GENERAL')}
+{phpinfo()}
 ```
 
 # Contributors

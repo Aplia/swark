@@ -290,6 +290,8 @@ Then create the PHP file and extend `SwarkOperator`, the base class will take ca
 cruft needed to define a template operator. The class must be accessible from the autoload system
 in PHP.
 
+.. code-block:: php
+
     <?php
     namespace MyProject;
 
