@@ -3,10 +3,7 @@
 =======
 
 :Authors:
-    Jan Kudlicka,
-    
-    Seeds Consulting AS, http://www.seeds.no/
-:Authors:
+    Jan Kudlicka, Seeds Consulting AS, http://www.seeds.no/
     Aplia AS, https://www.aplia.no
 
 .. contents:: Table of Contents
@@ -361,6 +358,3 @@ The `phpinfo` implementation is then as follows.
 An using it in an eZ template::
 
     {phpinfo('INFO_GENERAL')}
-
-
-.. [PHP] http://php.net/
