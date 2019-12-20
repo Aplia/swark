@@ -1,82 +1,111 @@
-# README #
+# Swark
 
-## Setting up a new operator ##
+A collection of must have template operators and workflow events for eZ publish legacy.
 
-This project makes possible a simpler setup of operators.
+The code is based on the Seeds Consulting version which was hosted on project.ez.no.
+It has been extended with new template operators and a simplified way to register new template operators,
+and has additionally been transformed into a proper Composer package.
 
-### Add the operator mapping ###
-In general projects this might be directly in the <Project>Operators.php-file, or their corresponding .ini-file for operators. In the case of SwarkOperators, use the Swark.ini-file in settings.
+## Installation
 
-Add an entry below `[Operators]`, mapping it to the file by name you set. Here, the name in brackets is what is used in templates, while the PascalCase-entry is the file name (without the `.php` file-extension)
+Install with Composer:
+
+```console
+composer require aplia/swark
 ```
-OperatorMap[my_new_function]=SwarkMyNewFunctionOperator
+
+## Template operators
+
+See doc/swark.rst for an overview of operators.
+
+## Workflow event types
+
+See doc/swark.rst for an overview of types.
+
+## Creating new operators
+
+In addition to new template operators this package also makes easier to add new custom ones in your
+own project or library.
+
+### Define the template operator
+
+Operators are detected from the INI file `swark.ini`. Adding a new operator only requires defining a new
+entry in the INI file under `[Operators]`, this maps the template operator name to a PHP class that
+implements the operator.
+
+For instance to expose the `phpinfo()` function we could do:
+
+```ini
+OperatorMap[phpinfo]=MyProject\PhpInfoOperator
 ```
 
-### Add the file you declared ###
-Under autoloads/classes, create the file corresponding to the mapping you created. 
+The class must be accessible from the autoload system in PHP.
 
-```
+Then create the PHP file and extend `SwarkOperator`, the base class will take care of all the
+cruft needed to define a template operator.
+
+```php
 <?php
-class SwarkMyNewFunction extends SwarkOperator
-{...}
-?>
+namespace MyProject;
+
+use SwarkOperator;
+
+class PhpInfoOperator extends SwarkOperator
+{
+	...
+}
 ```
 
-### Add some boilerplate ###
-The operator needs a **constructor** to initialize its operator name and its parameters ('namedParameters'), and a function to **execute**.
+### Boilerplate
+The operator needs a **constructor** to initialize its operator name and its parameters (`namedParameters`), and a function to **execute**.
 
-#### Constructor ####
-Here we set the operator name as specified in mapping, and initialize the input parameters of the operator to a default variable. We can also set its default value, for when the operator is called without parameters. (As in `'cake'|my_new_function`)
+#### Constructor
+The constructore defines the name of the template operator, this must match the name as specified in `swark.ini`. It also
+defines any parameters that it supports. Each parameter is a name with an optional default value.
 
-```
+For instance for our `phpinfo` operator we have one parameter which is empty by default, this matches the `$what` parameter
+for the `phpinfo()` function.
+
+```php
 function __construct()
 {
-    parent::__construct( 'my_new_function', 'params=This is a default string');
+    parent::__construct('phpinfo', 'what=');
 }
 ```
 
-If the operator is not using input parameters other than the piped object, you can omit the `params` from the constructor.
+#### Execute
+The execute function takes in two parameters `$operatorValue` and `$namedParameters`.
+`$operatorvalue` corresponds to the value that is piped to the operator, and `$namedParameters` is
+the value(s) supplied as parameters using the names defined in the constructor.
 
-#### Execute ####
-The execute function takes in two parameters `$operatorValue` and `$namedParameters`. `$operatorvalue` corresponds to the value that is piped to the operator, and `$namedParameters` is the value(s) supplied as parameters (E.g.: `my_new_function('cake')`).
-
+e.g.:
+```eztemplate
+phpinfo('INFO_GENERAL')
 ```
-static function execute( $operatorValue, $namedParameters )
+
+```php
+static function execute($operatorValue, $namedParameters)
 {
-	.
-	.
-	.
-    return True; // or whatever
+	if ($namedParameters['what']) {
+		$constants = array('INFO_GENERAL' => 1, 'INFO_ALL' => -1);
+		$what = $namedParameters['what'];
+		if (in_array($what, $constants)) {
+			phpinfo($constants[$what]);
+			return;
+		}
+	}
+
+	phpinfo();
 }
 ```
 
-### TL;DR ###
-1. Create the operator mapping in ini (or php)
-```
-OperatorMap[my_new_function]=SwarkMyNewFunctionOperator
-```
-2. Create the operator (under **autoloads/classes**
-)
-```
-<?php
-class SwarkMyNewFunction extends SwarkOperator
-{
-	function __construct()
-	{
-	    parent::__construct( 'my_new_function', 'params=This is a default string');
-	}
-	static function execute( $operatorValue, $namedParameters )
-	{
-		.
-		.
-		.
-	    return True; // or whatever
-	}
-}
-?>
-```
+Any values returned from `execute` will be the return value from the template operator.
 
-### Who do I talk to? ###
+# Contributors
 
-* Jan Borsodi
-* Rune Langseid
+This code was originally written by Jan Kudlicka and has been extended by developers at Aplia AS.
+A detailed list of contributors can be found at https://github.com/https://github.com/Aplia/swark/graphs/contributors
+
+# License
+
+GNU General Public License v2
