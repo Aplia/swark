@@ -281,7 +281,9 @@ Operators are detected from the INI file `swark.ini`. Adding a new operator only
 entry in the INI file under `[Operators]`, this maps the template operator name to a PHP class that
 implements the operator.
 
-For instance to expose the `phpinfo()` function we could do::
+For instance to expose the `phpinfo()` function we could do.
+
+.. code-block:: ini
 
     [Operators]
     OperatorMap[phpinfo]=MyProject\PhpInfoOperator
@@ -312,7 +314,9 @@ The constructore defines the name of the template operator, this must match the 
 defines any parameters that it supports. Each parameter is a name with an optional default value.
 
 For instance for our `phpinfo` operator we have one parameter which is empty by default, this matches the `$what` parameter
-for the `phpinfo()` function::
+for the `phpinfo()` function.
+
+.. code-block:: php
 
     function __construct()
     {
@@ -328,7 +332,9 @@ The execute function takes in two parameters `$operatorValue` and `$namedParamet
 the value(s) supplied as parameters using the names defined in the constructor.
 Any values returned from `execute` will be the return value from the template operator.
 
-The `phpinfo` implementation is then as follows::
+The `phpinfo` implementation is then as follows.
+
+.. code-block:: php
 
     static function execute($operatorValue, $namedParameters)
     {
