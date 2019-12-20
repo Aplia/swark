@@ -1,16 +1,19 @@
-=====================
- Swark Documentation
-=====================
+=======
+ Swark
+=======
 
 :Authors:
     Jan Kudlicka,
     
     Seeds Consulting AS, http://www.seeds.no/
+:Authors:
+    Aplia AS, https://www.aplia.no
 
 .. contents:: Table of Contents
    :depth: 2
 
-The Swark extension implements a set of operators needed very often but still missing in eZ Publish.
+The Swark extension implements a set of highly needed template operators and workflow
+event types which are sorely missing from eZ publish legacy.
 
 Operators
 =========
@@ -251,6 +254,12 @@ Operators
 
 .. include:: operators/variable_names.rst
 
+.. raw:: html
+
+   <hr />
+
+.. include:: operators/embed_design_file.rst
+
 
 Workflow event types
 ====================
@@ -263,63 +272,79 @@ Workflow event types
 
 .. include:: eventtypes/defertocron.rst
 
-
-Embed design file
-=================
-
-`embed_design_file` embeds a file located in the designed folders on the
-site. This is similar to th `ezdesign` operator but will return the
-contents of the file instead of the path.
-
-This can for instance be used to embed javascript code from a file,
-the javascript file can then be totally separate from the template code
-and can be opened like a normal javascript file. Another use case is
-to embed handlebar templates.
-
-Pass the relative file path to the operator, for instance `javascript/code.js`
-could be resolved to `extension/site/design/site/javscript.code.js`::
-
-    {embed_design_file('javascript/code.js')}
-
-If the second parameter is used and set to true then the returned value
-will contain an HTML element around the file contents if the file type
-is known, currently only Javascript and CSS files are supported::
-
-    {embed_design_file('javascript/code.js', true())}
-
-
 Custom operators
 ================
 
 Swark also makes it easier to create custom operators.
-Create a new operator class with a proper namespace then define the operator
-in `swark.ini`.
 
-::
+Operators are detected from the INI file `swark.ini`. Adding a new operator only requires defining a new
+entry in the INI file under `[Operators]`, this maps the template operator name to a PHP class that
+implements the operator.
 
-   [Operators]
-   OperatorMap[my_operator]=MyNamespace\MyOperator
+For instance to expose the `phpinfo()` function we could do::
 
-Then implement the class and make sure it is autoloaded.
+    [Operators]
+    OperatorMap[phpinfo]=MyProject\PhpInfoOperator
 
-::
+Then create the PHP file and extend `SwarkOperator`, the base class will take care of all the
+cruft needed to define a template operator. The class must be accessible from the autoload system
+in PHP.
 
-   <?php
-   namespace MyNamespace;
+    <?php
+    namespace MyProject;
 
-   class MyOperator extends \SwarkOperator
-   {
-       function __construct()
-       {
-           parent::__construct( 'my_operator' );
-       }
+    use SwarkOperator;
 
-       static function execute( $operatorValue, $namedParameters )
-       {
-           return json_encode( $operatorValue );
-       }
-   }
+    class PhpInfoOperator extends SwarkOperator
+    {
+        // ...
+    }
 
+The operator class then needs a **constructor** to initialize its operator name and its parameters (`namedParameters`),
+and a function to **execute**.
+
+Constructor
+-----------
+
+The constructore defines the name of the template operator, this must match the name as specified in `swark.ini`. It also
+defines any parameters that it supports. Each parameter is a name with an optional default value.
+
+For instance for our `phpinfo` operator we have one parameter which is empty by default, this matches the `$what` parameter
+for the `phpinfo()` function::
+
+    function __construct()
+    {
+        parent::__construct('phpinfo', 'what=');
+    }
+
+
+Execute
+-------
+
+The execute function takes in two parameters `$operatorValue` and `$namedParameters`.
+`$operatorvalue` corresponds to the value that is piped to the operator, and `$namedParameters` is
+the value(s) supplied as parameters using the names defined in the constructor.
+Any values returned from `execute` will be the return value from the template operator.
+
+The `phpinfo` implementation is then as follows::
+
+    static function execute($operatorValue, $namedParameters)
+    {
+        if ($namedParameters['what']) {
+            $constants = array('INFO_GENERAL' => 1, 'INFO_ALL' => -1);
+            $what = $namedParameters['what'];
+            if (in_array($what, $constants)) {
+                phpinfo($constants[$what]);
+                return;
+            }
+        }
+
+        phpinfo();
+    }
+
+An using it in an eZ template::
+
+    {phpinfo('INFO_GENERAL')}
 
 
 .. [PHP] http://php.net/
