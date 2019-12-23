@@ -27,6 +27,6 @@ Returns ["3.1415"].
 
 ::
 
-    {json_encode( 3.1415 )}
+    {json_encode( array( hash( 'a', 1, 'b', 2 ), 'Test', false(), 1.2345 ) )}
 
 Returns [{"a":1,"b":2},"Test",false,"1.234500"].
