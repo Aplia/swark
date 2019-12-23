@@ -4,6 +4,7 @@
 
 :Authors:
     Jan Kudlicka, Seeds Consulting AS, http://www.seeds.no/
+
     Aplia AS, https://www.aplia.no
 
 .. contents:: Table of Contents
