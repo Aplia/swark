@@ -1,6 +1,6 @@
-=======
- Swark
-=======
+*****
+Swark
+*****
 
 :Authors:
     Jan Kudlicka, Seeds Consulting AS, http://www.seeds.no/
