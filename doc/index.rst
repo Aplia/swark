@@ -258,6 +258,12 @@ Operators
 
 .. include:: operators/embed_design_file.rst
 
+.. raw:: html
+
+   <hr />
+
+.. include:: operators/ezselection_content.rst
+
 
 Workflow event types
 ====================

@@ -9,9 +9,9 @@ namespace Swark\TemplateOperators;
  * parameter 'with_id_as_key' to true. This parameter is irrelevant for multiselects.
  *
  * Examples:
- *      {$data_map.my_ezselection_single_field|selection_content} => '<name for selected value>'
- *      {$data_map.my_ezselection_single_field|selection_content(true)} => array(<id> => <name>)
- *      {$data_map.my_ezselection_multiple_field|selection_content} => array(<id> => <name>, [...])
+ *      {$data_map.my_ezselection_single_field|ezselection_content} => '<name for selected value>'
+ *      {$data_map.my_ezselection_single_field|ezselection_content(true)} => array(<id> => <name>)
+ *      {$data_map.my_ezselection_multiple_field|ezselection_content} => array(<id> => <name>, [...])
  *
  */
 class EzSelectionContent extends \SwarkOperator
