@@ -25,7 +25,7 @@ class SwarkJSONEncodeOperator extends SwarkOperator
 
     function __construct()
     {
-        parent::__construct( 'json_encode', 'value' );
+        parent::__construct( 'json_encode', 'value=' );
     }
 
     static private function getOptions()
