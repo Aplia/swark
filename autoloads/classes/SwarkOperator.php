@@ -105,6 +105,9 @@ class SwarkOperator
             }
             else
             {
+                if ($parameter['required']) {
+                    throw new Exception("Parameter $parameterName is required");
+                }
                 $code .= "{$namedParametersVarName}['$parameterName'] = " . var_export( isset($parameter['default']) ? $parameter['default'] : null, true ) . ";\n";
             }
             $index++;
