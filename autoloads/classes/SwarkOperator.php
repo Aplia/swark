@@ -19,6 +19,8 @@
 // MA 02110-1301, USA.
 //
 
+use Swark\Exceptions\SwarkParameterNotFound;
+
 class SwarkOperator
 {
     private $OperatorName = false;
@@ -106,7 +108,7 @@ class SwarkOperator
             else
             {
                 if ($parameter['required']) {
-                    throw new Exception("Parameter $parameterName is required");
+                    throw new SwarkParameterNotFound("Parameter $parameterName is required");
                 }
                 $code .= "{$namedParametersVarName}['$parameterName'] = " . var_export( isset($parameter['default']) ? $parameter['default'] : null, true ) . ";\n";
             }
