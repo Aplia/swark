@@ -38,7 +38,7 @@ class SwarkJSONEncodeOperator extends SwarkOperator
 
     static function execute( $operatorValue, $namedParameters )
     {
-        $value = $namedParameters['value'] !== null ? $namedParameters['value'] : $operatorValue;
+        $value = $operatorValue == null ? $namedParameters['value'] : $operatorValue;
         if (self::$options === null) {
             self::$options = version_compare(PHP_VERSION, '5.4.0') >= 0 ? (JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) : 0;
         }
