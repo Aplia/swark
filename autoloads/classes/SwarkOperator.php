@@ -33,18 +33,36 @@ class SwarkOperator
         $parameters = func_get_args();
         array_shift( $parameters );
         $this->Parameters = array();
-        foreach ( $parameters as $parameter )
+        foreach ( $parameters as $idx => $parameter )
         {
-            $parameterArray = explode( '=', $parameter, 2 );
-            $parameterName = $parameterArray[0];
-            if ( count( $parameterArray ) == 2 )
-            {
-                $this->Parameters[$parameterName] = array( 'type' => 'mixed', 'required' => false, 'default' => $parameterArray[1] );
+            // Parameter is either a string with name or name=default-string
+            // Or an associative array with ['name' => <name>] or ['name' => <name>, 'default' => <default>]
+            // The associative array may also have a 'type' set, this is then used to verify parameters when called
+            if (is_array($parameter)) {
+                if (!isset($parameter['name'])) {
+                    throw new Exception("Operator $operatorName: Parameter at index $idx was defined with an array, but did not define a 'name'");
+                }
+                $parameterName = $parameter['name'];
+                if (array_key_exists('default', $parameter)) {
+                    $defaultValue = $parameter['default'];
+                    $parameterOptions = array( 'type' => $defaultValue === null ? null : gettype($defaultValue), 'required' => false, 'default' => $defaultValue );
+                } else {
+                    $parameterOptions = array( 'type' => 'mixed', 'required' => true);
+                }
+                if (isset($parameter['type'])) {
+                    $parameterOptions['type'] = $parameter['type'];
+                }
+            } else {
+                $parameterArray = explode( '=', $parameter, 2 );
+                $parameterName = $parameterArray[0];
+                if ( count( $parameterArray ) == 2 ) {
+                    $defaultValue = $parameterArray[1];
+                    $parameterOptions = array('type' => 'mixed', 'required' => false, 'default' => $defaultValue);
+                } else {
+                    $$parameterOptions = array('type' => 'mixed', 'required' => true);
+                }
             }
-            else
-            {
-                $this->Parameters[$parameterName] = array( 'type' => 'mixed', 'required' => true );
-            }
+            $this->Parameters[$parameterName] = $parameterOptions;
         }
     }
 
@@ -103,6 +121,9 @@ class SwarkOperator
         {
             if ( isset( $parameters[$index-1] ) )
             {
+                if ($parameter['type'] !== null && $parameter['type'] !== 'mixed') {
+                    $code .= "if (gettype(%$index%) !== " . var_export($parameter['type'], true) . ") { throw new Exception(\"eZ tpl operator '{$this->OperatorName}': Expected type {$parameter['type']} for parameter '$parameterName', got: \" . gettype(%$index%)); };\n";
+                }
                 $code .= "{$namedParametersVarName}['$parameterName'] = %$index%;\n";
             }
             else
@@ -120,5 +141,3 @@ class SwarkOperator
         return array( eZTemplateNodeTool::createCodePieceElement( $code, $parameters ) );
     }
 }
-
-?>
