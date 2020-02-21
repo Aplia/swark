@@ -7,7 +7,7 @@ It has been extended with new template operators and a simplified way to registe
 and has additionally been transformed into a proper Composer package.
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/aplia/swark.svg?style=flat-square)](https://packagist.org/packages/aplia/swark)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.3-8892BF.svg?style=flat-square)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.4-8892BF.svg?style=flat-square)](https://php.net/)
 
 ## Installation
 
