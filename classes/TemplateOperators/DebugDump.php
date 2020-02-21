@@ -12,7 +12,9 @@ class DebugDump extends \SwarkOperator
 
     function __construct()
     {
-        parent::__construct('dump', 'value=');
+        parent::__construct('dump',
+            ['name' => 'value', 'default' => null]
+        );
     }
 
     static function execute($input, $namedParameters)
