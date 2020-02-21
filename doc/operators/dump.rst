@@ -9,7 +9,7 @@ Usage
 ~~~~~
 ::
 
-    input|debug( [ value ] )
+    input|dump( [ value ] )
 
 Parameters
 ~~~~~~~~~~
