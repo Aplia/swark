@@ -82,6 +82,12 @@ Operators
 
    <hr />
 
+.. include:: operators/dump.rst
+
+.. raw:: html
+
+   <hr />
+ 
 .. include:: operators/is_post_request.rst
 
 .. raw:: html
