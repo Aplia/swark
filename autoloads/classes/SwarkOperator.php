@@ -59,7 +59,7 @@ class SwarkOperator
                     $defaultValue = $parameterArray[1];
                     $parameterOptions = array('type' => 'mixed', 'required' => false, 'default' => $defaultValue);
                 } else {
-                    $$parameterOptions = array('type' => 'mixed', 'required' => true);
+                    $parameterOptions = array('type' => 'mixed', 'required' => true);
                 }
             }
             $this->Parameters[$parameterName] = $parameterOptions;
