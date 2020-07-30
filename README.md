@@ -20,7 +20,7 @@ composer require aplia/swark
 ## Documentation
 
 An overview of all the template operators and workflow events, as well as detailed instructions
-for creating new operators can be read at https://swark.readthedocs.io/
+for creating new operators can be read at [https://swark.readthedocs.io/](https://swark.readthedocs.io/)
 
 ## Creating new operators
 
@@ -32,11 +32,13 @@ More details can be found in the documentation.
 For instance to expose `phpinfo` one would do:
 
 `swark.ini`:
+
 ```ini
 OperatorMap[phpinfo]=MyProject\PhpInfoOperator
 ```
 
 `MyProject/PhpInfoOperator.php`:
+
 ```php
 <?php
 namespace MyProject;
@@ -63,11 +65,11 @@ Then use it in a template with:
 {phpinfo()}
 ```
 
-# Contributors
+## Contributors
 
 This code was originally written by Jan Kudlicka and has been extended by developers at Aplia AS.
 A detailed list of contributors can be found at https://github.com/Aplia/swark/graphs/contributors
 
-# License
+## License
 
 GNU General Public License v2
