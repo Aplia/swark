@@ -87,7 +87,7 @@ Operators
 .. raw:: html
 
    <hr />
- 
+
 .. include:: operators/is_post_request.rst
 
 .. raw:: html
@@ -269,6 +269,12 @@ Operators
    <hr />
 
 .. include:: operators/ezselection_content.rst
+
+.. raw:: html
+
+   <hr />
+
+.. include:: operators/ezobjectrelationlist_content.rst
 
 
 Workflow event types
