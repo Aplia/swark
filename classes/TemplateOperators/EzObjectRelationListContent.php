@@ -9,7 +9,6 @@ namespace Swark\TemplateOperators;
  *      {$data_map.my_ezobjectrelationlist_field|ezobjectrelationlist_content} => array(Node)
  * ```
  *
- * Will return the node directly, if only one is related.
  */
 class EzObjectRelationListContent extends \SwarkOperator
 {
@@ -22,11 +21,20 @@ class EzObjectRelationListContent extends \SwarkOperator
     {
         $classContent = $ezSelectionField->attribute('content');
         $relationList = $classContent['relation_list'];
+        $nodes = [];
 
-        $nodeIds = array_map(function($node) {
-            return $node['node_id'];
-        }, $relationList);
+        if ($relationList) {
+            $nodeIds = array_map(
+                function($node) {return $node['node_id'];},
+                $relationList
+            );
 
-        return \eZContentObjectTreeNode::fetch($nodeIds);
+            $nodes = \eZContentObjectTreeNode::fetch($nodeIds);
+            if ($nodes && !is_array($nodes)) {
+                $nodes = [$nodes];
+            }
+        }
+
+        return $nodes;
     }
 }
