@@ -5,8 +5,6 @@ Summary
 ~~~~~~~
 Alternative for getting ezobjectrelationlist content as a list of nodes, instead of an array which does not have the nodes.
 
-Will return the node directly, if only one is related.
-
 Usage
 ~~~~~
 ::
@@ -34,4 +32,4 @@ Examples
 
     {$data_map.my_ezobjectrelationlist_field|ezobjectrelationlist_content}
 
-Returns array of nodes, or the node directly: `array(eZContentObjectTreeNode)|eZContentObjectTreeNode`.
+Returns an array of nodes, or an empty array if there is no content: `array(eZContentObjectTreeNode)|eZContentObjectTreeNode`.
