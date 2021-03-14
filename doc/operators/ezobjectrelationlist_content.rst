@@ -5,6 +5,8 @@ Summary
 ~~~~~~~
 Alternative for getting ezobjectrelationlist content as a list of nodes, instead of an array which does not have the nodes.
 
+The order of the returned nodes are the same as `$attribute.content.relation_list` order.
+
 Usage
 ~~~~~
 ::
